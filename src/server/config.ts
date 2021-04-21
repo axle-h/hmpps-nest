@@ -81,7 +81,7 @@ function developmentOnly<T>(value: T): EnvironmentFallback<T> {
   return { value, developmentOnly: true };
 }
 
-function isProduction(): boolean {
+export function isProduction(): boolean {
   return process.env.NODE_ENV === 'production';
 }
 

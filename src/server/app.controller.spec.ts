@@ -14,8 +14,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.root()).toBe('Hello World!');
+    it('should return view model', () => {
+      expect(appController.root()).toStrictEqual({});
     });
   });
 });

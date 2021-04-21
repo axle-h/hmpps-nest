@@ -1,21 +1,22 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from '../server/app.module';
+import { E2eFixture } from './e2e.fixture';
+import * as cheerio from 'cheerio';
 
 describe('AppController (e2e)', () => {
-  let app: INestApplication;
+  const fixture = new E2eFixture();
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    await fixture.init();
   });
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!');
+    return fixture
+      .request()
+      .get('/')
+      .expect(200)
+      .expect((r) => {
+        const $ = cheerio.load(r.text);
+        expect($('title').text()).toBe('HMPPS Nest - Home');
+        expect($('.app-container h1').text()).toBe('This site is under construction...');
+      });
   });
 });
