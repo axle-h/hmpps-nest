@@ -4,9 +4,30 @@
 
 {% block content %}
 
-    <main class="app-container govuk-body">
-        <h1>This site is under construction...</h1>
-        <p>Please check back later when there is content to view.</p>
-    </main>
+  <main class="app-container govuk-body">
+    <h1>This site is under construction...</h1>
+    <p>Please check back later when there is content to view.</p>
+
+    <form method='POST'>
+      <label for='stringValue'>string value</label>
+      <input name='stringValue' type='text'>
+
+      <label for='intValue'>int value</label>
+      <input name='intValue' type='number'>
+
+      <button type='submit'>submit</button>
+    </form>
+
+    {% if model %}
+      <dl>
+        <dd>{{ model.stringValue }}</dd>
+        <dd>{{ model.intValue }}</dd>
+      </dl>
+    {% endif %}
+
+    {% if errors %}
+      {{ errors }}
+    {% endif %}
+  </main>
 
 {% endblock %}
